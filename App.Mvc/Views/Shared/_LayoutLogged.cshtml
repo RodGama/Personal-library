@@ -1,0 +1,149 @@
+﻿<!doctype html>
+<html lang="pt-br">
+
+<!-- Head -->
+<head>
+    <!-- Page Meta Tags-->
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Google Font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@200;300;400;600&display=swap" rel="stylesheet">
+
+    <link href="~/css/site.css" rel="stylesheet" />
+    <!-- Fix for custom scrollbar if JS is disabled-->
+    <noscript>
+        <style>
+            /**
+                                                * Reinstate scrolling for non-JS clients
+                                                */
+            .simplebar-content-wrapper {
+                overflow: auto;
+            }
+        </style>
+    </noscript>
+
+    <title>Dashboard</title>
+
+</head>
+<body class="">
+    <nav class="navbar navbar-expand-lg navbar-light border-0 py-0 fixed-top bg-dark-800">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between align-items-center flex-grow-1 navbar-actions">
+
+                <div class="menu-toggle cursor-pointer me-4 text-primary-hover transition-color disable-child-pointer">
+                    <i class="ri-menu-fold-line ri-lg fold align-middle" data-bs-toggle="tooltip" data-bs-placement="right" title="" data-bs-original-title="Close menu" aria-label="Close menu"></i>
+                    <i class="ri-menu-unfold-line ri-lg unfold align-middle" data-bs-toggle="tooltip" data-bs-placement="right" title="" data-bs-original-title="Open Menu" aria-label="Open Menu"></i>
+                </div>
+
+                <div class="d-flex align-items-center">
+
+                    <button class="btn-icon btn-hover-dark btn-search me-2">
+                        <i class="ri-search-2-line align-bottom lh-1 text-body"></i>
+                    </button>
+                    <a class="align-bottom lh-1 text-body" href="/dashboard">Clear search</a>
+                    <div id="navbar-search" class="navbar-search d-none">
+                        <div class="input-group mb-3 h-100">
+                            <span class="input-group-text px-4 bg-transparent"><i class="ri-search-line ri-lg"></i></span>
+                            <input type="text" id="search" class="form-control text-body bg-transparent border-0" placeholder="Enter your search terms...">
+                            <span class="input-group-text px-4 cursor-pointer disable-child-pointer close-search bg-transparent"><i class="ri-close-circle-line ri-lg text-primary"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+    <main id="main">
+
+        <section class="container-fluid">
+            @RenderBody()
+        </section>
+    </main>
+    <aside class="aside bg-dark-700">
+
+        <div class="simplebar-wrapper">
+            <div data-pixr-simplebar>
+                <div class="pb-6 pb-sm-0 position-relative">
+                    <div class="cursor-pointer close-menu me-4 text-primary-hover transition-color disable-child-pointer position-absolute end-0 top-0 mt-3 pt-1 d-xl-none">
+                        <i class="ri-close-circle-line ri-lg align-middle me-n2"></i>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center py-3">
+                        <a class="m-0" href="/dashboard">
+                            <div class="d-flex align-items-center justify-content-center">
+                                <span class="fw-bold fs-3 text-white">Book Manager</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="border-bottom pt-3 pb-5 mb-6 d-flex flex-column align-items-center">
+                        <div class="d-flex flex-wrap mt-2 justify-content-between align-items-center">
+                            <!-- User profile dropdown-->
+                            <div class="dropdown m-0">
+                                <button class="border-0 rounded px-2 f-h-9 bg-dark-opacity p-0 text-body" type="button" id="profileDropdown"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="ri-settings-2-line"></i>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="profileDropdown">
+                                    <li>
+                                        <a class="dropdown-item d-flex align-items-center" href="#">
+                                            <i class="ri-user-line me-2"></i> Edit
+                                            profile
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item text-danger d-flex align-items-center" href="#">
+                                            <i class="ri-lock-line me-2"></i> Logout
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- / User profile dropdown-->
+                        </div>
+                    </div>
+
+                    <ul class="list-unstyled mb-6 aside-menu">
+
+                        <li class="menu-section">Menu</li>
+                        <li class="menu-item">
+                            <a class="d-flex align-items-center menu-link" href="/dashboard">
+                                <i class="ri-home-smile-fill me-3"></i> <span>Bookshelf</span>
+                            </a>
+                            <a class="d-flex align-items-center menu-link" href="/dashboard/addbook">
+                                <i class="ri-contacts-book-upload-line me-3"></i><span>Add book</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </aside>
+    <script src="~/js/site.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+         const searchElement = document.getElementById("search");
+        searchElement.addEventListener('keydown', function(event) {
+          if (event.key === 'Enter') {
+            console.log('Enter was pressed in the input field');
+            if(window.location.search.includes("page"))
+                window.location = window.location + "&search="+ document.getElementById("search").value;
+            window.location = "?search="+ document.getElementById("search").value;
+
+          }
+        });
+    </script>
+</body>
+
+</html>

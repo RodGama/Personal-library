@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+	<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="9.0.0" />
+    <PackageReference Include="AspNetCore.HealthChecks.System" Version="9.0.0" />
+    <PackageReference Include="Carter" Version="9.0.0" />
+    <PackageReference Include="ErrorOr" Version="2.0.1" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+    <PackageReference Include="MediatR" Version="12.5.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.4" />
+    <PackageReference Include="Microsoft.CodeAnalysis" Version="4.13.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.13.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Compilers" Version="4.13.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.13.0" />
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="9.0.4" />
+    <PackageReference Include="prometheus-net.AspNetCore" Version="8.2.1" />
+    <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="8.1.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="8.1.1" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.4" />
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Books\Modules.Books.Features\Modules.Books.Features.csproj" />
+    <ProjectReference Include="..\Books\Modules.Books.Infrastructure\Modules.Books.Infrastructure.csproj" />
+    <ProjectReference Include="..\Commom\Modules.Common.Features\Modules.Common.Features.csproj" />
+    <ProjectReference Include="..\Users\Modules.Users.Features\Modules.Users.Features.csproj" />
+    <ProjectReference Include="..\Users\Modules.Users.Infrastructure\Modules.Users.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

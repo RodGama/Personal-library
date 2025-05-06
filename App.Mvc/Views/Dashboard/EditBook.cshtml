@@ -1,0 +1,117 @@
+﻿@using App.MVC.DTOs
+@using App.MVC.Models.Forms
+@model UpdateBookForm
+@{
+    ViewData["Title"] = "Edit Book";
+    Layout = "_LayoutLogged";
+    var book = ViewData["book"] as BookDTO;
+}
+@using (Html.BeginForm("EditBook", "Dashboard", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger" role="alert">
+            @Html.ValidationSummary(true, "", new { })
+        </div>
+    } 
+    <div class="card mb-4">
+        <div class="card-header justify-content-between align-items-center d-flex">
+            <h6 class="card-title m-0">Edit book</h6>
+        </div>
+        <div class="card-body">
+            <div class="mb-3">
+                <label for="Title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" name="title" value="@book.Title">
+            </div>
+            <div class="mb-3">
+                <label for="author" class="form-label">Author</label>
+                <input type="text" class="form-control" id="author" name="author" value="@book.Author">
+            </div>
+            <div class="mb-3">
+                <label for="publisher" class="form-label">Publisher</label>
+                <input type="text" class="form-control" id="publisher" name="publisher" value="@book.Publisher">
+            </div>
+            <div class="mb-3">
+                <label for="Genre" class="form-label">Genre</label>
+                <select class="form-select form-select-sm mb-3" name="genre" id="genre" aria-label=".form-select-sm example">
+                    <option disabled>Select a Genre</option>
+                    <optgroup label="Fiction">
+                        <option value="1">Fantasy</option>
+                        <option value="2">Science Fiction</option>
+                        <option value="3">Horror</option>
+                        <option value="4">Mystery</option>
+                        <option value="5">Romance</option>
+                        <option value="6">Historical Fiction</option>
+                        <option value="7">Adventure</option>
+                        <option value="8">Dystopian</option>
+                        <option value="9">Literary Fiction</option>
+                        <option value="10">Young Adult</option>
+                        <option value="11">Short Story</option>
+                    </optgroup>
+                    <optgroup label="Nonfiction">
+                        <option value="12">Biography</option>
+                        <option value="13">Autobiography</option>
+                        <option value="14">History</option>
+                        <option value="15">Cookbooks</option>
+                        <option value="16">Art & Photography</option>
+                        <option value="17">Health and Fitness</option>
+                        <option value="18">Self-Help</option>
+                        <option value="19">Children's</option>
+                        <option value="20">Crafts & Hobbies</option>
+                    </optgroup>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="isbn" class="form-label">ISBN</label>
+                <input type="number" class="form-control" id="isbn" name="isbn" value="@book.ISBN">
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" name="description">@book.Description</textarea>
+            </div>
+            <div class="mb-3">
+                <label for="book cover" class="form-label">Book Cover</label>
+                <br />
+                <picture id="Cover" class="mt-1 responsive mb-3 me-4">
+                    <img src="data:image/png;base64,@book.ImageBase64" class="responsive center-block" />
+                </picture>
+                <input type="hidden" class="form-control" id="ImageBas64" name="ImageBas64" value="@book.ImageBase64" />
+                <input type="hidden" class="form-control" id="BookCoverChanged" name="BookCoverChanged" value="false" />
+                <br />
+                <button class="btn btn-primary" id="changeCover" onclick="changeCover()">Change book cover</button>
+                <button class="btn btn-primary" id="recoverCover" style="display:none" onclick="recoverCover()">Recover book cover</button>
+
+                <hr />
+            </div>
+            <div class="mb-3" style="display:none;" id="newCover">
+                <label for="file" class="form-label">Book Cover</label>
+                <input type="file" class="form-control" id="File" name="File" accept=".png,.jpg,.jpeg" />
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+}
+<script>
+    document.getElementById("changeCover").addEventListener("click", function(event) {
+        event.preventDefault(); 
+        document.getElementById("BookCoverChanged").value = true;
+        document.getElementById("changeCover").style.display = "none";
+        document.getElementById("Cover").style.display = "none";
+        document.getElementById("newCover").style.display = "block";
+        document.getElementById("recoverCover").style.display = "block";
+
+        
+    });
+     document.getElementById("recoverCover").addEventListener("click", function(event) {
+        event.preventDefault();
+        document.getElementById("BookCoverChanged").value = false;
+        document.getElementById("changeCover").style.display = "block";
+        document.getElementById("Cover").style.display = "block";
+        document.getElementById("newCover").style.display = "none";
+        document.getElementById("recoverCover").style.display = "none";
+
+    });
+    
+</script>

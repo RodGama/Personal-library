@@ -1,0 +1,82 @@
+﻿@using App.MVC.DTOs
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "_LayoutLogged";
+    var books = ViewData["Books"] as List<BookDTO>;
+    var pageNumber = ViewData["page"] as string;
+    var search = ViewData["Search"] as string;
+
+    int pagePrevious = 0;
+    int pageNext;
+    pageNext = Int32.Parse(pageNumber) + 1;
+    if (pageNumber != "0")
+        pagePrevious = Int32.Parse(pageNumber) - 1;
+
+    var previousQuery = $"?page={pagePrevious.ToString()}&lastPage={pageNumber}";
+    var nextQuery = $"?page={pageNext.ToString()}&lastPage={pageNumber}";
+    if (!String.IsNullOrWhiteSpace(search))
+    {
+        previousQuery += "&search=" + search;
+        nextQuery += "&search=" + search;
+    }
+}
+
+<div class="row g-4 mb-4">
+
+    @{
+        if (books == null || books.Count == 0)
+        {
+            <h2>No books available.</h2>
+        }
+        else
+        {
+            <h2>Available Books</h2>
+
+            <a class="btn mb-2 btn-outline-primary" href="/dashboard/reports">Download reports</a>
+
+            @foreach (var book in books)
+            {
+                <div class="col-12 col-lg-3">
+                    <div class="card h-100">
+                        <div class="card-header justify-content-between align-items-center d-flex border-0 pb-0">
+                            <h6 class="card-title">@book.Title by @book.Author - @book.Publisher</h6>
+                            <div class="dropdown">
+                                <button class="btn btn-link dropdown-toggle dropdown-toggle-icon fw-bold p-0" type="button" id="dropdown@($"{book.ISBN}")" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="ri-more-2-line"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown" aria-labelledby="dropdown@($"{book.ISBN}")" style="">
+                                    <li><a class="dropdown-item" href="/dashboard/EditBook?isbn=@($"{book.ISBN}")">Edit book</a></li>
+                                    <li><a class="dropdown-item" href="/dashboard/DeleteBook?isbn=@($"{book.ISBN}")">Delete book</a></li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active">
+                                    <picture class="responsive">
+                                        <img src="data:image/png;base64,@book.ImageBase64" class="responsive center-block" />
+                                    </picture>
+                                    
+                                    <hr class="dropdown-divider">
+                                    <p class="small d-flex align-items-center">@book.Description</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            }
+            <nav>
+                <ul class="pagination justify-content-end mt-3 mb-0">
+                    <li class="page-item"><a class="page-link" href="/dashboard@($"{previousQuery}")">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="/dashboard@($"{nextQuery}")">Next</a></li>
+
+                </ul>
+            </nav>
+        }
+    }
+
+</div>
+
+
