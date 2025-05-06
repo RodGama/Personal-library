@@ -19,14 +19,15 @@ cd Personal-library
 
 ### Estrutura do Projeto
 
-Este repositório contém duas aplicações .NET. Certifique-se de navegar para os diretórios corretos antes de executar os comandos de build.
+Este repositório contém duas aplicações .NET. Os comandos de build, restore e run devem ser executados na pasta raiz do repositório.
 
 ## Restaurando Dependências
 
 Execute o comando abaixo na raiz do repositório ou nos diretórios específicos das aplicações:
 
 ```sh
-dotnet restore
+dotnet restore --project app.mvc/app.mvc.csproj
+dotnet restore --project app.webapi/api.host/api.host.csproj
 ```
 
 ## Construindo o Projeto
@@ -34,7 +35,8 @@ dotnet restore
 Para compilar as aplicações, execute:
 
 ```sh
-dotnet build
+dotnet build --project app.mvc/app.mvc.csproj
+dotnet build --project app.webapi/api.host/api.host.csproj
 ```
 
 ## Executando o Projeto
